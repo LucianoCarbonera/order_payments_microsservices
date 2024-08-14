@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from dotenv import load_dotenv
+
+# Carregar as variáveis de ambiente do arquivo .env específico deste serviço
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 
 def main():

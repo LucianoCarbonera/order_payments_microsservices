@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -74,16 +76,23 @@ WSGI_APPLICATION = 'orders_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+from decouple import config
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT'),
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST'),
+        'PORT': config('DATABASE_PORT'),
     }
 }
+
+# Configuração do RabbitMQ
+RABBITMQ_HOST = config('RABBITMQ_HOST')
+RABBITMQ_PORT = config('RABBITMQ_PORT')
+RABBITMQ_QUEUE = config('RABBITMQ_QUEUE')
 
 
 # Password validation
