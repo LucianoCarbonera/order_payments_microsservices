@@ -4,24 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fb9c0e6-0816-44f9-87d5-6744943d4b6a" name="Changes" comment="primeiro commit">
-      <change afterPath="$PROJECT_DIR$/orders_service/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/order_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders_service/orders/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders_service/producer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/consumer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/payments/templates/payments/payment_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/payments/templates/payments/payments_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/payments/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9fb9c0e6-0816-44f9-87d5-6744943d4b6a" name="Changes" comment="Criação dos microsserviços intermediados por rabbitMQ">
+      <change afterPath="$PROJECT_DIR$/orders_service/orders/order_status_consumer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/thanks.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders_service/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders_service/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders_service/orders/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders_service/orders/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/orders_service/orders_service/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders_service/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments_service/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments_service/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments_service/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments_service/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders_service/producer.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/producer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments_service/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/consumer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +64,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\WinUser\Documents\PythonProjetcs\microsservicos_tcc\orders_service\orders" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -96,7 +93,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723581197449</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Criação dos microsserviços intermediados por rabbitMQ">
+      <option name="closed" value="true" />
+      <created>1723666731294</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723666731294</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -108,7 +113,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -116,6 +127,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="primeiro commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="primeiro commit" />
+    <MESSAGE value="Criação dos microsserviços intermediados por rabbitMQ" />
+    <option name="LAST_COMMIT_MESSAGE" value="Criação dos microsserviços intermediados por rabbitMQ" />
   </component>
 </project>
