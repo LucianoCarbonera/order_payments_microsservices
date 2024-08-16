@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  orders_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: orders_service
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - orders_db_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  payments_db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: payments_service
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - payments_db_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+  orders_service:
+    build:
+      context: ./orders_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./orders_service:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_NAME=orders_service
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=orders_db
+      - DATABASE_PORT=5432
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - orders_db
+      - rabbitmq
+
+  payments_service:
+    build:
+      context: ./payments_service
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - ./payments_service:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_NAME=payments_service
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=payments_db
+      - DATABASE_PORT=5432
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - payments_db
+      - rabbitmq
+
+volumes:
+  orders_db_data:
+  payments_db_data:
+  prometheus_data:
+  grafana_data:

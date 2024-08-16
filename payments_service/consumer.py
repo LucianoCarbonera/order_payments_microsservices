@@ -2,7 +2,6 @@ import pika
 import os
 import django
 import json
-import requests
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'payments_service.settings')
 django.setup()
@@ -22,35 +21,62 @@ def process_payment(ch, method, properties, body):
         )
         print(f"Pagamento criado: {payment}")
 
-        # Aqui marca como concluído o pagamento
+        # Marca o pagamento como concluído
         payment.mark_as_completed()
         print(f"Pagamento {payment.transaction_id} concluído.")
 
-        # Envia a atualização de status para o serviço de pedidos
-        update_order_status(order_id, 'COMPLETED')
+        # Publica a mensagem no RabbitMQ para informar o orders_service sobre a atualização
+        publish_status_update(order_id, 'COMPLETED')
 
     except Exception as e:
         print(f"Erro ao processar pagamento: {e}")
 
-def update_order_status(order_id, status):
+def publish_status_update(order_id, status):
     try:
-        url = f"http://localhost:8000/orders/update_status/{order_id}/"
-        data = {'status': status}
-        response = requests.post(url, json=data)
-        response.raise_for_status()
-        print(f"Status do pedido {order_id} atualizado para {status}")
-    except requests.exceptions.HTTPError as errh:
-        print(f"Falha ao atualizar status do pedido {order_id} no serviço de pedidos: {errh}")
+        connection = pika.BlockingConnection(pika.ConnectionParameters(
+            host=os.getenv('RABBITMQ_HOST', 'localhost'),
+            port=int(os.getenv('RABBITMQ_PORT', 5672)),
+            virtual_host=os.getenv('RABBITMQ_VHOST', '/'),
+            credentials=pika.PlainCredentials(
+                username=os.getenv('RABBITMQ_DEFAULT_USER', 'guest'),
+                password=os.getenv('RABBITMQ_DEFAULT_PASS', 'guest')
+            )
+        ))
+        channel = connection.channel()
+
+        # Garante que a fila 'order_update_queue' será criada
+        channel.queue_declare(queue=os.getenv('RABBITMQ_UPDATE_QUEUE', 'order_update_queue'))
+
+        update_message = {
+            'order_id': order_id,
+            'status': status
+        }
+
+        channel.basic_publish(
+            exchange='',
+            routing_key=os.getenv('RABBITMQ_UPDATE_QUEUE', 'order_update_queue'),
+            body=json.dumps(update_message)
+        )
+
+        connection.close()
+        print(f"Mensagem de atualização de status enviada para o pedido {order_id}")
+
     except Exception as e:
-        print(f"Erro ao enviar a atualização do status: {e}")
+        print(f"Erro ao enviar a atualização de status: {e}")
 
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(
         host=os.getenv('RABBITMQ_HOST', 'localhost'),
-        port=int(os.getenv('RABBITMQ_PORT', 5672))
+        port=int(os.getenv('RABBITMQ_PORT', 5672)),
+        virtual_host=os.getenv('RABBITMQ_VHOST', '/'),
+        credentials=pika.PlainCredentials(
+            username=os.getenv('RABBITMQ_DEFAULT_USER', 'guest'),
+            password=os.getenv('RABBITMQ_DEFAULT_PASS', 'guest')
+        )
     ))
     channel = connection.channel()
 
+    # Garante que a fila 'order_queue' será criada
     channel.queue_declare(queue=os.getenv('RABBITMQ_QUEUE', 'order_queue'))
 
     channel.basic_consume(

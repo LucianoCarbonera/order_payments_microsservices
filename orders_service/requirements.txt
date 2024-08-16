@@ -1,0 +1,8 @@
+Django==5.1
+djangorestframework
+pika
+prometheus-client
+python-dotenv
+python-decouple
+django-prometheus
+psycopg2-binary
