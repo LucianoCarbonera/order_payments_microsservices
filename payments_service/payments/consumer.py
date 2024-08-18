@@ -1,8 +1,11 @@
-import pika
+import sys
 import os
 import django
+import pika
 import json
 
+# Corrigido para refletir o caminho correto do settings
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'payments_service.settings')
 django.setup()
 
@@ -21,7 +24,7 @@ def process_payment(ch, method, properties, body):
         )
         print(f"Pagamento criado: {payment}")
 
-        # Marca o pagamento como concluído
+        # Aqui marca como concluído o pagamento
         payment.mark_as_completed()
         print(f"Pagamento {payment.transaction_id} concluído.")
 
@@ -35,17 +38,11 @@ def publish_status_update(order_id, status):
     try:
         connection = pika.BlockingConnection(pika.ConnectionParameters(
             host=os.getenv('RABBITMQ_HOST', 'localhost'),
-            port=int(os.getenv('RABBITMQ_PORT', 5672)),
-            virtual_host=os.getenv('RABBITMQ_VHOST', '/'),
-            credentials=pika.PlainCredentials(
-                username=os.getenv('RABBITMQ_DEFAULT_USER', 'guest'),
-                password=os.getenv('RABBITMQ_DEFAULT_PASS', 'guest')
-            )
+            port=int(os.getenv('RABBITMQ_PORT', 5672))
         ))
         channel = connection.channel()
 
-        # Garante que a fila 'order_update_queue' será criada
-        channel.queue_declare(queue=os.getenv('RABBITMQ_UPDATE_QUEUE', 'order_update_queue'))
+        channel.queue_declare(queue='order_update_queue')
 
         update_message = {
             'order_id': order_id,
@@ -54,7 +51,7 @@ def publish_status_update(order_id, status):
 
         channel.basic_publish(
             exchange='',
-            routing_key=os.getenv('RABBITMQ_UPDATE_QUEUE', 'order_update_queue'),
+            routing_key='order_update_queue',
             body=json.dumps(update_message)
         )
 
@@ -67,16 +64,10 @@ def publish_status_update(order_id, status):
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(
         host=os.getenv('RABBITMQ_HOST', 'localhost'),
-        port=int(os.getenv('RABBITMQ_PORT', 5672)),
-        virtual_host=os.getenv('RABBITMQ_VHOST', '/'),
-        credentials=pika.PlainCredentials(
-            username=os.getenv('RABBITMQ_DEFAULT_USER', 'guest'),
-            password=os.getenv('RABBITMQ_DEFAULT_PASS', 'guest')
-        )
+        port=int(os.getenv('RABBITMQ_PORT', 5672))
     ))
     channel = connection.channel()
 
-    # Garante que a fila 'order_queue' será criada
     channel.queue_declare(queue=os.getenv('RABBITMQ_QUEUE', 'order_queue'))
 
     channel.basic_consume(

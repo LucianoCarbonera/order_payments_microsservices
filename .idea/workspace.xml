@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fb9c0e6-0816-44f9-87d5-6744943d4b6a" name="Changes" comment="Implementações de views e consumo das mensagens na fila do rabbitMQ">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders_service/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/orders_service/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/payments_service/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prometheus.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders/order_status_consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/order_status_consumer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders/producer.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/producer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders/templates/orders/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders/templates/orders/order_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/order_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders/templates/orders/thanks.html" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders/templates/orders/thanks.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders_service/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders_service/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/orders_service/orders_service/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/orders_service/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/consumer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments/templates/payments/payment_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments/templates/payments/payment_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments/templates/payments/payments_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments/templates/payments/payments_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments_service/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments_service/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payments_service/payments_service/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments_service/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/orders_service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders_service/supervisord.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payments_service/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/payments_service/payments/consumer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="Dockerfile" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -72,7 +59,7 @@
     "Python.urls.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/WinUser/Documents/PythonProjetcs/microsservicos_tcc/payments_service",
+    "last_opened_file_path": "C:/Users/lucar/OneDrive/Documentos/TCC II/tcc",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
@@ -81,12 +68,16 @@
       <recent name="C:\Users\WinUser\Documents\PythonProjetcs\microsservicos_tcc\payments_service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lucar\OneDrive\Documentos\TCC II\tcc\payments_service\payments" />
+      <recent name="C:\Users\lucar\OneDrive\Documentos\TCC II\tcc\payments_service" />
       <recent name="C:\Users\WinUser\Documents\PythonProjetcs\microsservicos_tcc\orders_service\orders" />
     </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
   </component>
@@ -134,6 +125,7 @@
     <servers />
   </component>
   <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.ps1" />
   </component>

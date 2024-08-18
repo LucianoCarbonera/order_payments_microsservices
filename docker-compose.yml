@@ -85,6 +85,44 @@ services:
       - payments_db
       - rabbitmq
 
+  payments_consumer:
+    build:
+      context: ./payments_service
+    command: sh -c "sleep 10 && python /app/payments/consumer.py"
+    volumes:
+      - ./payments_service:/app
+    environment:
+      - DATABASE_NAME=payments_service
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=payments_db
+      - DATABASE_PORT=5432
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - payments_db
+      - rabbitmq
+    restart: always
+
+  orders_status_consumer:
+    build:
+      context: ./orders_service
+    command: sh -c "sleep 10 && python /app/orders/order_status_consumer.py"
+    volumes:
+      - ./orders_service:/app
+    environment:
+      - DATABASE_NAME=orders_service
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=orders_db
+      - DATABASE_PORT=5432
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - orders_db
+      - rabbitmq
+    restart: always
+
 volumes:
   orders_db_data:
   payments_db_data:
