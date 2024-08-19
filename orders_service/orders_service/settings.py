@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-ta4mb91!9=xjs14%k%na4tq0m-pqahi7%290wz8!y72$%9bbu2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'host.docker.internal']
-
+#ALLOWED_HOSTS = ['orders_service:8000', 'payments_service:8001', 'localhost', '127.0.0.1', 'host.docker.internal', '0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'orders',
     'django_prometheus',
 ]
-
+#'orders_service.middleware.DisableHostCheckForMetricsMiddleware',
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
