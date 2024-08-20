@@ -6,3 +6,4 @@ python-dotenv
 python-decouple
 django-prometheus
 psycopg2-binary
+locust

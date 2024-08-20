@@ -39,7 +39,6 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
 
-
   grafana:
     image: grafana/grafana
     ports:
@@ -124,6 +123,17 @@ services:
       - orders_db
       - rabbitmq
     restart: always
+
+  locust:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    depends_on:
+      - orders_service
+    environment:
+      TARGET_HOST: http://orders_service:8000
 
 volumes:
   orders_db_data:
